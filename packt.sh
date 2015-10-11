@@ -38,13 +38,13 @@ log "e-Book claimed"
 book=$(echo $claim | sed 's/.*\/\([0-9]*\)\/.*/\1/')
 
 # PDF download
-curl -s --retry $rtry -A "$agent" -b "$cookie" -c "$cookie" "https://www.packtpub.com/ebook_download/$book/pdf" > "$title.pdf"
+curl -s --retry $rtry -A "$agent" -b "$cookie" -c "$cookie" "https://www.packtpub.com/ebook_download/$book/pdf" > "$dldir/$title.pdf"
 cex=$?; test "$cex" -ne "0" && { log "curl exit error code: $cex"; exit; }
 echo "PDF downloaded"
 log "PDF downloaded"
 
 # Mobi download
-curl -s --retry $rtry -A "$agent" -b "$cookie" -c "$cookie" "https://www.packtpub.com/ebook_download/$book/mobi" > "$title.mobi"
+curl -s --retry $rtry -A "$agent" -b "$cookie" -c "$cookie" "https://www.packtpub.com/ebook_download/$book/mobi" > "$dldir/$title.mobi"
 cex=$?; test "$cex" -ne "0" && { log "curl exit error code: $cex"; exit; }
 echo "Mobi downloaded"
 log "Mobi downloaded"
