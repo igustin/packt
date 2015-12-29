@@ -23,7 +23,7 @@ cex=$?; test "$cex" -ne "0" && { log "curl exit error code: $cex"; exit; }
 curl -s --retry $rtry -m $tout -A "$agent" -b "$cookie" -c "$cookie" https://www.packtpub.com/packt/offers/free-learning > packt_daily.html
 cex=$?; test "$cex" -ne "0" && { log "curl exit error code: $cex"; exit; }
 
-title=$(grep "dotd-title" -A 2 packt_daily.html | tail -1 | sed 's/^[^A-Za-z]*//;s/[\t ]*<\/h2>$//')
+title=$(grep "dotd-title" -A 2 packt_daily.html | tail -1 | sed 's/^[^0-9A-Za-z]*//;s/[\t ]*<\/h2>$//')
 echo "Today's free e-book: $title"
 log "Today's free e-book: $title"
 
@@ -38,13 +38,13 @@ log "e-Book claimed"
 book=$(echo $claim | sed 's/.*\/\([0-9]*\)\/.*/\1/')
 
 # PDF download
-curl -s --retry $rtry -A "$agent" -b "$cookie" -c "$cookie" "https://www.packtpub.com/ebook_download/$book/pdf" > "$dldir/$title.pdf"
+curl -s -L --retry $rtry -A "$agent" -b "$cookie" -c "$cookie" "https://www.packtpub.com/ebook_download/$book/pdf" > "$dldir/$title.pdf"
 cex=$?; test "$cex" -ne "0" && { log "curl exit error code: $cex"; exit; }
 echo "PDF downloaded"
 log "PDF downloaded"
 
 # Mobi download
-curl -s --retry $rtry -A "$agent" -b "$cookie" -c "$cookie" "https://www.packtpub.com/ebook_download/$book/mobi" > "$dldir/$title.mobi"
+curl -s -L --retry $rtry -A "$agent" -b "$cookie" -c "$cookie" "https://www.packtpub.com/ebook_download/$book/mobi" > "$dldir/$title.mobi"
 cex=$?; test "$cex" -ne "0" && { log "curl exit error code: $cex"; exit; }
 echo "Mobi downloaded"
 log "Mobi downloaded"
