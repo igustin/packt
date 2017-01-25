@@ -23,14 +23,14 @@ rm -f $cookie packt*.html
 log "Packt web login"
 
 # web login
-curl -s --retry $rtry -m $tout -A "$agent" -b "$cookie" -c "$cookie" -d "email=$userid" -d "password=$pwd" -d "op=Login" -d "form_build_id=form-73ba86bbfb2a50719049129632c84810 " -d "form_token=2f1d586bf7df196b77d0761709d03199" -d "form_id=packt_user_login_form" https://www.packtpub.com
+curl -s --retry $rtry -m $tout -A "$agent" -b "$cookie" -c "$cookie" --data-urlencode "email=$userid" -d "password=$pwd" -d "op=Login" -d "form_build_id=form-73ba86bbfb2a50719049129632c84810 " -d "form_token=2f1d586bf7df196b77d0761709d03199" -d "form_id=packt_user_login_form" https://www.packtpub.com
 cex=$?; test "$cex" -ne "0" && { log "curl exit error code: $cex"; exit; }
 
 # daily free e-book
 curl -s --retry $rtry -m $tout -A "$agent" -b "$cookie" -c "$cookie" https://www.packtpub.com/packt/offers/free-learning > packt_daily.html
 cex=$?; test "$cex" -ne "0" && { log "curl exit error code: $cex"; exit; }
 
-title=$(grep "dotd-title" -A 2 packt_daily.html | tail -1 | sed 's/^[^0-9A-Za-z]*//;s/[\t ]*<\/h2>$//')
+title=$(grep "dotd-title" -A 2 packt_daily.html | tail -1 | sed 's/^[^0-9A-Za-z]*//;s/[\t ]*<\/h2>$//' | awk '{$1=$1};1')
 log "Today's free e-book: $title"
 
 # claim
