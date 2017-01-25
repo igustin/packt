@@ -30,7 +30,7 @@ cex=$?; test "$cex" -ne "0" && { log "curl exit error code: $cex"; exit; }
 curl -s --retry $rtry -m $tout -A "$agent" -b "$cookie" -c "$cookie" https://www.packtpub.com/packt/offers/free-learning > packt_daily.html
 cex=$?; test "$cex" -ne "0" && { log "curl exit error code: $cex"; exit; }
 
-title=$(grep "dotd-title" -A 2 packt_daily.html | tail -1 | sed 's/^[^0-9A-Za-z]*//;s/[\t ]*<\/h2>$//')
+title=$(grep "dotd-title" -A 2 packt_daily.html | tail -1 | sed 's/^[^0-9A-Za-z]*//;s/[\t ]*<\/h2>$//' | awk '{$1=$1};1')
 log "Today's free e-book: $title"
 
 # claim
