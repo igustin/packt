@@ -10,7 +10,8 @@ function log {
 }
 
 function getBook {
-	curl -s -L --retry $rtry -A "$agent" -b "$cookie" -c "$cookie" "https://www.packtpub.com/ebook_download/$book/$1" > "$dldir/$title.$1"
+	mkdir -p "$dldir/$title"
+	curl -s -L --retry $rtry -A "$agent" -b "$cookie" -c "$cookie" "https://www.packtpub.com/ebook_download/$book/$1" > "$dldir/$title/$title.$1"
 	cex=$?; test "$cex" -ne "0" && { log "curl exit error code: $cex"; exit; }
 	log "$1 downloaded"
 }
