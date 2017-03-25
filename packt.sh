@@ -2,7 +2,9 @@
 
 # Packt daily free e-book claim & download
 
-source "packt.cfg"
+CONFIG_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+source "$CONFIG_DIR/packt.cfg"
 
 function log {
     echo "$(date '+%Y-%m-%d %H:%M:%S ') $1" >> "$log"
