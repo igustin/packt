@@ -24,7 +24,7 @@ rm -f $cookie packt*.html
 log "Packt web login"
 
 # web login
-curl -s --retry $rtry -m $tout -A "$agent" -b "$cookie" -c "$cookie" --data-urlencode "email=$userid" -d "password=$pwd" -d "op=Login" -d "form_build_id=form-73ba86bbfb2a50719049129632c84810 " -d "form_token=2f1d586bf7df196b77d0761709d03199" -d "form_id=packt_user_login_form" https://www.packtpub.com
+curl -s --retry $rtry -m $tout -A "$agent" -b "$cookie" -c "$cookie" --data-urlencode "email=$userid" -d "password=$pwd" -d "op=Login" -d "form_build_id=form-b6740162fad00dd87424960dbdd5f83d" -d "form_token=2f1d586bf7df196b77d0761709d03199" -d "form_id=packt_user_login_form" https://www.packtpub.com
 cex=$?; test "$cex" -ne "0" && { log "curl exit error code: $cex"; exit; }
 
 # daily free e-book
